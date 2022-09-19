@@ -1,0 +1,43 @@
+package com.example.logger;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button btn_locate;
+    TextView tv_latitude, tv_longhitud;
+
+    Button btn_locate = (Button)findViewById(R.id.btn_locate);
+    tv_latitude = (TextView)findViewById(R.id.tv_latitude);
+    tv_longhitud = (TextView)findViewById(R.id.tv_longhitud);
+
+    ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+    Manifest.permission.ACCESS_FINE_LOCATION}, 123);
+    btn_locate.setOnClickListener(new View.OnClickListener() {
+    @Override
+        public void onClick(View v) {
+            GPSLocator gpsLocator = new GPSLocator(getApplicationContext());
+            Location location = gpsLocator.GetLocation();
+            if(location != null){
+                double latitude = location.getLatitude();
+                double longhitud = location.getLongitude();
+                tv_latitude.setText(String.valueOf(latitude));
+                tv_longhitud.setText(String.valueOf(longhitud));
+            }
+        }
+    });
+}

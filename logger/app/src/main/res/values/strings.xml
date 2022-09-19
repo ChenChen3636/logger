@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">logger</string>
+    <string name="textView_PermissionResult">tvRes</string>
+</resources>
